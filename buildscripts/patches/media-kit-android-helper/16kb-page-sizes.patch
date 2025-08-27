@@ -1,0 +1,62 @@
+diff --git a/app/build.gradle b/app/build.gradle
+index 8e6be94..4260b00 100644
+--- a/app/build.gradle
++++ b/app/build.gradle
+@@ -4,16 +4,27 @@ plugins {
+ 
+ android {
+     namespace 'com.alexmercerind.mediakitandroidhelper'
+-    compileSdk 33
++    compileSdk 35
++    ndkVersion '28.2.13676358'
+ 
+     defaultConfig {
+         applicationId "com.alexmercerind.mediakitandroidhelper"
+         minSdk 21
+-        targetSdk 33
++        targetSdk 35
+         versionCode 1
+         versionName "1.0"
+ 
+         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
++
++        // This block is different from the one you use to link Gradle
++        // to your CMake or ndk-build script.
++        externalNativeBuild {
++        // For ndk-build, instead use the ndkBuild block.
++        cmake {
++            // Passes optional arguments to CMake.
++            arguments "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON"
++        }
++        }
+     }
+ 
+     buildTypes {
+diff --git a/build.gradle b/build.gradle
+index f05eacf..0ebef73 100644
+--- a/build.gradle
++++ b/build.gradle
+@@ -1,5 +1,5 @@
+ // Top-level build file where you can add configuration options common to all sub-projects/modules.
+ plugins {
+-    id 'com.android.application' version '7.4.2' apply false
+-    id 'com.android.library' version '7.4.2' apply false
++    id 'com.android.application' version '8.10.0' apply false
++    id 'com.android.library' version '8.10.0' apply false
+ }
+\ No newline at end of file
+diff --git a/gradle/wrapper/gradle-wrapper.properties b/gradle/wrapper/gradle-wrapper.properties
+index 6c8230b..ac72c34 100644
+--- a/gradle/wrapper/gradle-wrapper.properties
++++ b/gradle/wrapper/gradle-wrapper.properties
+@@ -1,6 +1,7 @@
+-#Sat Apr 01 23:35:39 IST 2023
+ distributionBase=GRADLE_USER_HOME
+-distributionUrl=https\://services.gradle.org/distributions/gradle-7.5-bin.zip
+ distributionPath=wrapper/dists
+-zipStorePath=wrapper/dists
++distributionUrl=https\://services.gradle.org/distributions/gradle-8.12-bin.zip
++networkTimeout=10000
++validateDistributionUrl=true
+ zipStoreBase=GRADLE_USER_HOME
++zipStorePath=wrapper/dists

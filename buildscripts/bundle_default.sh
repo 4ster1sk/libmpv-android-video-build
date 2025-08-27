@@ -26,6 +26,7 @@ cp flavors/default.sh scripts/ffmpeg.sh
 cd deps/media-kit-android-helper
 
 sudo chmod +x gradlew
+./gradlew wrapper --gradle-version 8.12
 ./gradlew assembleRelease
 
 unzip -o app/build/outputs/apk/release/app-release.apk -d app/build/outputs/apk/release
@@ -46,6 +47,10 @@ flutter create --org com.alexmercerind --template plugin_ffi --platforms=android
 if ! grep -q android "pubspec.yaml"; then
   printf "      android:\n        ffiPlugin: true\n" >> pubspec.yaml
 fi
+
+# いらないかも
+sed -i "s/compileSdk = 34/compileSdk = 35/" android/build.gradle
+sed -i "s/ndkVersion = .*/ndkVersion = '28.2.13676358'/" android/build.gradle
 
 flutter pub get
 
